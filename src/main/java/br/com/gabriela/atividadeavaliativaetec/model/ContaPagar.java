@@ -1,8 +1,12 @@
 package br.com.gabriela.atividadeavaliativaetec.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+
+@Entity
+@Table (name="contapagar")
 
 public class ContaPagar {
 
@@ -12,6 +16,7 @@ public class ContaPagar {
     private Integer id;
     private Date data;
     private Date dataVencimento;
+    private BigDecimal valor;
 
     @ManyToMany
     @JoinColumn(name="idcliente")
@@ -39,6 +44,14 @@ public class ContaPagar {
 
     public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 
     public Cliente getCliente() {
