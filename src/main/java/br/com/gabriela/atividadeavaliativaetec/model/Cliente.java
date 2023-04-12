@@ -7,17 +7,16 @@ import java.util.Objects;
 
 @Entity
 @Table (name="cliente")
-
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String nome;
 
     @OneToMany(mappedBy = "cliente")
     private List<ContaPagar> contaspagar = new ArrayList<>();
-
-    private Integer id;
-    private String nome;
 
     public List<ContaPagar> getContaspagar() {
         return contaspagar;

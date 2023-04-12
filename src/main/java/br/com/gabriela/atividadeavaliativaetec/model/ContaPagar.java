@@ -7,18 +7,16 @@ import java.util.Objects;
 
 @Entity
 @Table (name="contapagar")
-
 public class ContaPagar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
     private Date data;
     private Date dataVencimento;
     private BigDecimal valor;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name="idcliente")
     private Cliente cliente;
 
@@ -61,7 +59,6 @@ public class ContaPagar {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
 
     @Override
     public boolean equals(Object o) {
