@@ -1,5 +1,7 @@
 package br.com.gabriela.atividadeavaliativaetec.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,9 +15,10 @@ public class ContaPagar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date data;
-    private Date dataVencimento;
+    private Date datavenc;
     private BigDecimal valor;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="idcliente")
     private Cliente cliente;
@@ -36,12 +39,12 @@ public class ContaPagar {
         this.data = data;
     }
 
-    public Date getDataVencimento() {
-        return dataVencimento;
+    public Date getDatavenc() {
+        return datavenc;
     }
 
-    public void setDataVencimento(Date dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setDatavenc(Date datavenc) {
+        this.datavenc = datavenc;
     }
 
     public BigDecimal getValor() {

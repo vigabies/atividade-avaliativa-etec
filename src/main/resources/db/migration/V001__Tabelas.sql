@@ -3,7 +3,7 @@ Create table Cliente (
     nome varchar (100)
 );
 
-insert into cliente(nome) values('Harry Edward');
+insert into cliente(nome) values('Nana Nenem');
 
 --=====================
 

@@ -1,5 +1,7 @@
 package br.com.gabriela.atividadeavaliativaetec.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,9 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<ContaPagar> contaspagar = new ArrayList<>();
 
