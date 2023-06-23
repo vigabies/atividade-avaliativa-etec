@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,8 +15,8 @@ public class ContaPagar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Date data;
-    private Date datavenc;
+    private LocalDate data;
+    private LocalDate datavenc;
     private BigDecimal valor;
 
     @JsonIgnore
@@ -31,19 +32,19 @@ public class ContaPagar {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public Date getDatavenc() {
+    public LocalDate getDatavenc() {
         return datavenc;
     }
 
-    public void setDatavenc(Date datavenc) {
+    public void setDatavenc(LocalDate datavenc) {
         this.datavenc = datavenc;
     }
 
