@@ -3,6 +3,7 @@ package br.com.gabriela.atividadeavaliativaetec.repository.filter.ContaPagar;
 import br.com.gabriela.atividadeavaliativaetec.model.ContaPagar;
 import br.com.gabriela.atividadeavaliativaetec.repository.filter.ContaPagarFilter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
@@ -32,9 +33,29 @@ public class ContaPagarRepositoryImpl implements ContaPagarRepositoryQuery{
         TypedQuery<ContaPagar> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
 
+        return new PageImpl<>(query.getResultList(), pageable, totalRegistro(contaPagarFilter));
+    }
+
+    private Long totalRegistro(ContaPagarFilter contaPagarFilter) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<ContaPagar> root = criteria.from(ContaPagar.class);
+
+        Predicate[] predicates = criarRestricoes(contaPagarFilter, builder, root);
+        criteria.where(predicates);
+        criteria.orderBy(builder.asc(root.get("data")));
+
+        criteria.select(builder.count(root));
+        return manager.createQuery(criteria).getSingleResult();
     }
 
     private void adicionarRestricoesDePaginacao(TypedQuery<ContaPagar> query, Pageable pageable) {
+        int pageAtual = pageable.getPageNumber();
+        int totalRegistroPage = pageable.getPageSize();
+        int primeiroRegistroPage = pageAtual * totalRegistroPage;
+
+        query.setFirstResult(primeiroRegistroPage);
+        query.setMaxResults(totalRegistroPage);
     }
 
     private Predicate[] criarRestricoes(ContaPagarFilter contaPagarFilter, CriteriaBuilder builder, Root<ContaPagar> root) {
