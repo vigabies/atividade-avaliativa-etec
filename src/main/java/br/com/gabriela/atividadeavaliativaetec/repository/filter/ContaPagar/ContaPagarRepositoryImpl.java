@@ -31,7 +31,7 @@ public class ContaPagarRepositoryImpl implements ContaPagarRepositoryQuery{
         criteria.select(builder.construct(ResumoConta.class
                 , root.get("id")
                 , root.get("data")
-                , root.get("datavencimento")
+                , root.get("datavenc")
                 , root.get("valor")
                 , root.get("cliente").get("nome")
         ));
