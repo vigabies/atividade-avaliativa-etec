@@ -4,6 +4,7 @@ package br.com.gabriela.atividadeavaliativaetec.resource;
 import br.com.gabriela.atividadeavaliativaetec.model.ContaPagar;
 import br.com.gabriela.atividadeavaliativaetec.repository.ContaPagarRepository;
 import br.com.gabriela.atividadeavaliativaetec.repository.filter.ContaPagarFilter;
+import br.com.gabriela.atividadeavaliativaetec.repository.projections.ResumoConta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,8 @@ public class ContaPagarResource {
         return contaPagarRepository.findAll();
     }
 
-    public Page<ContaPagar> pesquisar(ContaPagarFilter contaPagarFilter, Pageable pageable) {
+    @GetMapping()
+    public Page<ResumoConta> pesquisar(ContaPagarFilter contaPagarFilter, Pageable pageable) {
         return contaPagarRepository.filtrar(contaPagarFilter, pageable);
     }
 }

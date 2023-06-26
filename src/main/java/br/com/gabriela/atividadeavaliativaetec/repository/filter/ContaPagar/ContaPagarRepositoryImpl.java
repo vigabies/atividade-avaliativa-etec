@@ -2,6 +2,7 @@ package br.com.gabriela.atividadeavaliativaetec.repository.filter.ContaPagar;
 
 import br.com.gabriela.atividadeavaliativaetec.model.ContaPagar;
 import br.com.gabriela.atividadeavaliativaetec.repository.filter.ContaPagarFilter;
+import br.com.gabriela.atividadeavaliativaetec.repository.projections.ResumoConta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,18 +22,26 @@ public class ContaPagarRepositoryImpl implements ContaPagarRepositoryQuery{
     private EntityManager manager;
 
     @Override
-    public Page<ContaPagar> filtrar(ContaPagarFilter contaPagarFilter, Pageable pageable) {
+    public Page<ResumoConta> filtrar(ContaPagarFilter contaPagarFilter, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<ContaPagar> criteria = builder.createQuery(ContaPagar.class);
+        CriteriaQuery<ResumoConta> criteria = builder.createQuery(ResumoConta.class);
         Root<ContaPagar> root = criteria.from(ContaPagar.class);
+
+        //select todos os campos q ta no filme
+        criteria.select(builder.construct(ResumoConta.class
+                , root.get("id")
+                , root.get("data")
+                , root.get("datavencimento")
+                , root.get("valor")
+                , root.get("cliente").get("nome")
+        ));
 
         Predicate[] predicates = criarRestricoes(contaPagarFilter, builder, root);
         criteria.where(predicates);
         criteria.orderBy(builder.asc(root.get("data")));
 
-        TypedQuery<ContaPagar> query = manager.createQuery(criteria);
+        TypedQuery<ResumoConta> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
-
         return new PageImpl<>(query.getResultList(), pageable, totalRegistro(contaPagarFilter));
     }
 
@@ -49,7 +58,7 @@ public class ContaPagarRepositoryImpl implements ContaPagarRepositoryQuery{
         return manager.createQuery(criteria).getSingleResult();
     }
 
-    private void adicionarRestricoesDePaginacao(TypedQuery<ContaPagar> query, Pageable pageable) {
+    private void adicionarRestricoesDePaginacao(TypedQuery<ResumoConta> query, Pageable pageable) {
         int pageAtual = pageable.getPageNumber();
         int totalRegistroPage = pageable.getPageSize();
         int primeiroRegistroPage = pageAtual * totalRegistroPage;
