@@ -8,5 +8,4 @@ import org.springframework.data.domain.Pageable;
 
 public interface ContaPagarRepositoryQuery {
     public Page<ResumoConta> filtrar(ContaPagarFilter contaPagarFilter, Pageable pageable);
-
 }

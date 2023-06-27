@@ -30,7 +30,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery{
 
         Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("nomecliente")));
+        criteria.orderBy(builder.asc(root.get("nome")));
 
         TypedQuery<Cliente> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
@@ -64,7 +64,7 @@ public class ClienteRepositoryImpl implements ClienteRepositoryQuery{
         List<Predicate> predicates = new ArrayList<>();
 
         if (!StringUtils.isEmpty(clienteFilter.getNome())) {
-            predicates.add(builder.like(builder.lower(root.get("nomecliente")),
+            predicates.add(builder.like(builder.lower(root.get("nome")),
                     "%" + clienteFilter.getNome().toLowerCase() + "%"));
         }
         return predicates.toArray((new Predicate[predicates.size()]));

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("clientes")
 public class ClienteResource {
     @Autowired
     private ClienteRepository clienteRepository;
@@ -25,6 +25,7 @@ public class ClienteResource {
         return clienteRepository.findAll();
     }
 
+    @GetMapping()
     public Page<Cliente> pesquisar(ClienteFilter clienteFilter, Pageable pageable) {
         return clienteRepository.filtrar(clienteFilter, pageable);
     }

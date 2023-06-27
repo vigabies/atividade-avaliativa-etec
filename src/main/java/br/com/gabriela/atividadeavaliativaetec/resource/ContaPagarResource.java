@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contapagar")
+@RequestMapping("contapagar")
 public class ContaPagarResource {
     @Autowired
     private ContaPagarRepository contaPagarRepository;
