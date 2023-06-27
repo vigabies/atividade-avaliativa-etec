@@ -9,11 +9,14 @@ public class ResumoConta {
     private LocalDate datavenc;
     private BigDecimal valor;
 
-    public ResumoConta(Integer id, LocalDate data, LocalDate datavenc, BigDecimal valor) {
+    private String nome;
+
+    public ResumoConta(Integer id, LocalDate data, LocalDate datavenc, BigDecimal valor, String nome) {
         this.id = id;
         this.data = data;
         this.datavenc = datavenc;
         this.valor = valor;
+        this.nome = nome;
     }
 
     public Integer getId() {
@@ -47,5 +50,14 @@ public class ResumoConta {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
+
 
